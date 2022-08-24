@@ -1,5 +1,12 @@
+import { useState } from 'react';
+import Backdrop from './Backdrop';
+import Modal from './Modal';
+
 // must use capital letter for component function
 function Todo(props) {
+
+    // sets initial state of modal as 'false' (closed)
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     // calling with () in 'onClick' below would
     //   make the function to be executed whenever
@@ -8,10 +15,12 @@ function Todo(props) {
     // to execute when the element is clicked then
     //   we should call it simply by function name
     function deleteHandler() {
-        console.log("clicked!");
-        console.log(props.text);
+        setModalIsOpen(true);
     }
 
+    // {modalIsOpen && <Modal />}
+    //   .. is shorter for
+    // {modalIsOpen ? <Modal /> : null}
   return (
     <div className="card">
       <h2>{props.text}</h2>
@@ -20,6 +29,8 @@ function Todo(props) {
         <button className="btn" onClick={deleteHandler}>
           Delete
         </button>
+        {modalIsOpen && <Modal />}
+        {modalIsOpen && <Backdrop />}
       </div>
     </div>
   );
